@@ -17,7 +17,7 @@ const connectDB = async () => {
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-      }
+      },
     );
     console.log(`The db is connected with ${mongoose.connection.host}`);
   } catch (error) {
@@ -34,7 +34,7 @@ const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
 // Routes
 app.get('/', (req, res) => {
   res.send(
-    'Welcome to the LMS! <br>A Learning Management System (LMS) is a software application or web-based technology designed to plan, implement, and assess a specific learning process. LMS solutions can be used in various educational settings, including schools, universities, and corporate training environments.'
+    'Welcome to the LMS! <br>A Learning Management System (LMS) is a software application or web-based technology designed to plan, implement, and assess a specific learning process. LMS solutions can be used in various educational settings, including schools, universities, and corporate training environments.',
   );
 });
 
@@ -84,7 +84,7 @@ app.put('/users/:id', async (req, res) => {
     const user = await User.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
     if (!user) {
       return res.status(404).send('User not found');
@@ -157,7 +157,7 @@ app.put('/courses/:id', async (req, res) => {
     const course = await Course.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
     if (!course) {
       return res.status(404).send('Course not found');
