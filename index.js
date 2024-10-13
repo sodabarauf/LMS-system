@@ -186,5 +186,5 @@ app.delete('/courses/:id', async (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`); // Consider removing or replacing with logging
+  console.log(`Example app listening on port ${port}`);
 });
