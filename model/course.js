@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // Define the Course schema
 const courseSchema = new mongoose.Schema({
   title: {
-    type: String,                      
+    type: String,
     required: true,
   },
   description: {
@@ -24,4 +24,3 @@ const courseSchema = new mongoose.Schema({
 // Create and export the Course model
 const Course = mongoose.model('Course', courseSchema);
 module.exports = Course;
-

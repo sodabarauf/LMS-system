@@ -81,7 +81,10 @@ app.put('/users/:id', async (req, res) => {
     if (!isValidObjectId(req.params.id)) {
       return res.status(400).send('Invalid user ID format');
     }
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true });
     if (!user) {
       return res.status(404).send('User not found');
     }
@@ -150,7 +153,10 @@ app.put('/courses/:id', async (req, res) => {
     if (!isValidObjectId(req.params.id)) {
       return res.status(400).send('Invalid course ID format');
     }
-    const course = await Course.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    const course = await Course.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true });
     if (!course) {
       return res.status(404).send('Course not found');
     }
