@@ -23,8 +23,6 @@ const connectDB = async () => {
   }
 };
 
-
-
 connectDB();
 
 // Function to validate ObjectId
@@ -32,7 +30,9 @@ const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Welcome to the LMS! <br>A Learning Management System (LMS) is a software application or web-based technology designed to plan, implement, and assess a specific learning process. LMS solutions can be used in various educational settings, including schools, universities, and corporate training environments.');
+  res.send(
+    'Welcome to the LMS! <br>A Learning Management System (LMS) is a software application or web-based technology designed to plan, implement, and assess a specific learning process. LMS solutions can be used in various educational settings, including schools, universities, and corporate training environments.'
+  );
 });
 
 // User CRUD operations
@@ -42,7 +42,7 @@ app.post('/users', async (req, res) => {
     await user.save();
     res.status(201).send(user);
   } catch (error) {
-    res.status(400).send("Error creating user: " + error.message);
+    res.status(400).send(`Error creating user: ${error.message}`);
   }
 });
 
@@ -52,7 +52,7 @@ app.get('/users', async (req, res) => {
     const users = await User.find();
     res.status(200).send(users);
   } catch (error) {
-    res.status(500).send("Error fetching users: " + error.message);
+    res.status(500).send(`Error fetching users: ${error.message}`);
   }
 });
 
@@ -60,15 +60,15 @@ app.get('/users', async (req, res) => {
 app.get('/users/:id', async (req, res) => {
   try {
     if (!isValidObjectId(req.params.id)) {
-      return res.status(400).send("Invalid user ID format");
+      return res.status(400).send('Invalid user ID format');
     }
     const user = await User.findById(req.params.id);
     if (!user) {
-      return res.status(404).send("User not found");
+      return res.status(404).send('User not found');
     }
     res.status(200).send(user);
   } catch (error) {
-    res.status(500).send("Error fetching user: " + error.message);
+    res.status(500).send(`Error fetching user: ${error.message}`);
   }
 });
 
@@ -76,15 +76,15 @@ app.get('/users/:id', async (req, res) => {
 app.put('/users/:id', async (req, res) => {
   try {
     if (!isValidObjectId(req.params.id)) {
-      return res.status(400).send("Invalid user ID format");
+      return res.status(400).send('Invalid user ID format');
     }
     const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
     if (!user) {
-      return res.status(404).send("User not found");
+      return res.status(404).send('User not found');
     }
     res.status(200).send(user);
   } catch (error) {
-    res.status(400).send("Error updating user: " + error.message);
+    res.status(400).send(`Error updating user: ${error.message}`);
   }
 });
 
@@ -92,15 +92,15 @@ app.put('/users/:id', async (req, res) => {
 app.delete('/users/:id', async (req, res) => {
   try {
     if (!isValidObjectId(req.params.id)) {
-      return res.status(400).send("Invalid user ID format");
+      return res.status(400).send('Invalid user ID format');
     }
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
-      return res.status(404).send("User not found");
+      return res.status(404).send('User not found');
     }
     res.status(200).send(user);
   } catch (error) {
-    res.status(500).send("Error deleting user: " + error.message);
+    res.status(500).send(`Error deleting user: ${error.message}`);
   }
 });
 
@@ -111,7 +111,7 @@ app.post('/courses', async (req, res) => {
     await course.save();
     res.status(201).send(course);
   } catch (error) {
-    res.status(400).send("Error creating course: " + error.message);
+    res.status(400).send(`Error creating course: ${error.message}`);
   }
 });
 
@@ -121,7 +121,7 @@ app.get('/courses', async (req, res) => {
     const courses = await Course.find().populate('teacher', 'name');
     res.status(200).send(courses);
   } catch (error) {
-    res.status(500).send("Error fetching courses: " + error.message);
+    res.status(500).send(`Error fetching courses: ${error.message}`);
   }
 });
 
@@ -129,15 +129,15 @@ app.get('/courses', async (req, res) => {
 app.get('/courses/:id', async (req, res) => {
   try {
     if (!isValidObjectId(req.params.id)) {
-      return res.status(400).send("Invalid course ID format");
+      return res.status(400).send('Invalid course ID format');
     }
     const course = await Course.findById(req.params.id).populate('teacher', 'name');
     if (!course) {
-      return res.status(404).send("Course not found");
+      return res.status(404).send('Course not found');
     }
     res.status(200).send(course);
   } catch (error) {
-    res.status(500).send("Error fetching course: " + error.message);
+    res.status(500).send(`Error fetching course: ${error.message}`);
   }
 });
 
@@ -145,15 +145,15 @@ app.get('/courses/:id', async (req, res) => {
 app.put('/courses/:id', async (req, res) => {
   try {
     if (!isValidObjectId(req.params.id)) {
-      return res.status(400).send("Invalid course ID format");
+      return res.status(400).send('Invalid course ID format');
     }
     const course = await Course.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
     if (!course) {
-      return res.status(404).send("Course not found");
+      return res.status(404).send('Course not found');
     }
     res.status(200).send(course);
   } catch (error) {
-    res.status(400).send("Error updating course: " + error.message);
+    res.status(400).send(`Error updating course: ${error.message}`);
   }
 });
 
@@ -161,15 +161,15 @@ app.put('/courses/:id', async (req, res) => {
 app.delete('/courses/:id', async (req, res) => {
   try {
     if (!isValidObjectId(req.params.id)) {
-      return res.status(400).send("Invalid course ID format");
+      return res.status(400).send('Invalid course ID format');
     }
     const course = await Course.findByIdAndDelete(req.params.id);
     if (!course) {
-      return res.status(404).send("Course not found");
+      return res.status(404).send('Course not found');
     }
     res.status(200).send(course);
   } catch (error) {
-    res.status(500).send("Error deleting course: " + error.message);
+    res.status(500).send(`Error deleting course: ${error.message}`);
   }
 });
 
