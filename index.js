@@ -12,10 +12,13 @@ app.use(express.json()); // To parse JSON bodies
 // MongoDB connection
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb+srv://sodabarauf:FGTXcs7lI4Fzis09@cluster0.2yv4a.mongodb.net/mydb', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(
+      'mongodb+srv://sodabarauf:FGTXcs7lI4Fzis09@cluster0.2yv4a.mongodb.net/mydb',
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    );
     console.log(`The db is connected with ${mongoose.connection.host}`);
   } catch (error) {
     console.error('Database connection failed:', error);
@@ -40,9 +43,9 @@ app.post('/users', async (req, res) => {
   try {
     const user = new User(req.body);
     await user.save();
-    res.status(201).send(user);
+    return res.status(201).send(user); // Add return statement
   } catch (error) {
-    res.status(400).send(`Error creating user: ${error.message}`);
+    return res.status(400).send(`Error creating user: ${error.message}`);
   }
 });
 
@@ -50,9 +53,9 @@ app.post('/users', async (req, res) => {
 app.get('/users', async (req, res) => {
   try {
     const users = await User.find();
-    res.status(200).send(users);
+    return res.status(200).send(users); // Add return statement
   } catch (error) {
-    res.status(500).send(`Error fetching users: ${error.message}`);
+    return res.status(500).send(`Error fetching users: ${error.message}`);
   }
 });
 
@@ -66,9 +69,9 @@ app.get('/users/:id', async (req, res) => {
     if (!user) {
       return res.status(404).send('User not found');
     }
-    res.status(200).send(user);
+    return res.status(200).send(user); // Add return statement
   } catch (error) {
-    res.status(500).send(`Error fetching user: ${error.message}`);
+    return res.status(500).send(`Error fetching user: ${error.message}`);
   }
 });
 
@@ -82,9 +85,9 @@ app.put('/users/:id', async (req, res) => {
     if (!user) {
       return res.status(404).send('User not found');
     }
-    res.status(200).send(user);
+    return res.status(200).send(user); // Add return statement
   } catch (error) {
-    res.status(400).send(`Error updating user: ${error.message}`);
+    return res.status(400).send(`Error updating user: ${error.message}`);
   }
 });
 
@@ -98,9 +101,9 @@ app.delete('/users/:id', async (req, res) => {
     if (!user) {
       return res.status(404).send('User not found');
     }
-    res.status(200).send(user);
+    return res.status(200).send(user); // Add return statement
   } catch (error) {
-    res.status(500).send(`Error deleting user: ${error.message}`);
+    return res.status(500).send(`Error deleting user: ${error.message}`);
   }
 });
 
@@ -109,9 +112,9 @@ app.post('/courses', async (req, res) => {
   try {
     const course = new Course(req.body);
     await course.save();
-    res.status(201).send(course);
+    return res.status(201).send(course); // Add return statement
   } catch (error) {
-    res.status(400).send(`Error creating course: ${error.message}`);
+    return res.status(400).send(`Error creating course: ${error.message}`);
   }
 });
 
@@ -119,9 +122,9 @@ app.post('/courses', async (req, res) => {
 app.get('/courses', async (req, res) => {
   try {
     const courses = await Course.find().populate('teacher', 'name');
-    res.status(200).send(courses);
+    return res.status(200).send(courses); // Add return statement
   } catch (error) {
-    res.status(500).send(`Error fetching courses: ${error.message}`);
+    return res.status(500).send(`Error fetching courses: ${error.message}`);
   }
 });
 
@@ -135,9 +138,9 @@ app.get('/courses/:id', async (req, res) => {
     if (!course) {
       return res.status(404).send('Course not found');
     }
-    res.status(200).send(course);
+    return res.status(200).send(course); // Add return statement
   } catch (error) {
-    res.status(500).send(`Error fetching course: ${error.message}`);
+    return res.status(500).send(`Error fetching course: ${error.message}`);
   }
 });
 
@@ -151,9 +154,9 @@ app.put('/courses/:id', async (req, res) => {
     if (!course) {
       return res.status(404).send('Course not found');
     }
-    res.status(200).send(course);
+    return res.status(200).send(course); // Add return statement
   } catch (error) {
-    res.status(400).send(`Error updating course: ${error.message}`);
+    return res.status(400).send(`Error updating course: ${error.message}`);
   }
 });
 
@@ -167,13 +170,13 @@ app.delete('/courses/:id', async (req, res) => {
     if (!course) {
       return res.status(404).send('Course not found');
     }
-    res.status(200).send(course);
+    return res.status(200).send(course); // Add return statement
   } catch (error) {
-    res.status(500).send(`Error deleting course: ${error.message}`);
+    return res.status(500).send(`Error deleting course: ${error.message}`);
   }
 });
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Example app listening on port ${port}`); // Consider removing or replacing with logging
 });
