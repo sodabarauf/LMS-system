@@ -84,7 +84,8 @@ app.put('/users/:id', async (req, res) => {
     const user = await User.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true, runValidators: true });
+      { new: true, runValidators: true }
+    );
     if (!user) {
       return res.status(404).send('User not found');
     }
@@ -156,7 +157,8 @@ app.put('/courses/:id', async (req, res) => {
     const course = await Course.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true, runValidators: true });
+      { new: true, runValidators: true }
+    );
     if (!course) {
       return res.status(404).send('Course not found');
     }
